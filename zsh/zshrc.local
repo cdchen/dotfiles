@@ -1,0 +1,136 @@
+export PATH=~/.local/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:$LD_LIBRARY_PATH
+
+# key bindings
+
+# prepend currenct command line with sudo
+bindkey "\es" sudo-command-line
+
+# aliases
+alias bd="bin/django"
+alias bdrs="bin/django runserver"
+alias bdrs0="bin/django runserver 0.0.0.0:8000"
+alias bdrsp="bin/django runserver_plus"
+alias bdsh="bin/django shell"
+alias bdshp="bin/django shell_plus"
+alias bddb="bin/django syncdb --noinput"
+alias bddump="bin/django dumpdata --indent=2"
+alias bdload="bin/django loaddata"
+alias bdt="bin/django test -v 0"
+alias bdsm="bin/django startmigration"
+alias bdm="bin/django migrate"
+alias bdloadtestuser="bin/django loaddata ~p/snippets/djangotestuser.json"
+bdtest () { find src -name "*.py" | xargs pywatch "bin/test"; }
+
+alias bf="bin/fab"
+
+alias dj="python manage.py"
+alias djrs="python manage.py runserver"
+alias djrs0="python manage.py runserver 0.0.0.0:8000"
+alias djrsp="python manage.py runserver_plus"
+alias djsh="python manage.py shell"
+alias djshp="python manage.py shell_plus"
+alias djdb="python manage.py syncdb --noinput"
+alias djdump="python manage.py dumpdata --indent=2"
+alias djload="python manage.py loaddata"
+alias djt="python manage.py test"
+alias djsm="python manage.py startmigration"
+alias djm="python manage.py migrate"
+alias djloadtestuser="python manage.py loaddata ~p/snippets/djangotestuser.json"
+
+alias ack="ack-grep"
+alias b="bzr"
+alias grepn="grep -n"
+alias rmpyc='find . -name \*.pyc -delete'
+alias rmsvn='find . -name ".svn" | xargs rm -r'
+alias rename='gvim -c Renamer 2> /dev/null'
+alias x='exit'
+alias pythoninstall='python setup.py install --prefix=~/.local'
+alias easypip 'pip install --install-option="--prefix=~/.local"'
+alias apt="sudo aptitude"
+alias apti="sudo aptitude install"
+alias apts="sudo aptitude search"
+alias aptu="sudo aptitude update && sudo aptitude safe-upgrade"
+alias aptux="sudo aptitude update && sudo aptitude dist-upgrade"
+alias createpytags="find -name \"*.py\" | xargs ctags -f .tags --fields=+i"
+alias pipinstall="pip install --install-option='--prefix=~/.local'"
+alias rsynca="rsync -rlptD"
+
+alias vizsh="gvim ~/.zshrc.local"
+
+ofm() {
+        emulate -L zsh
+        dolphin "`pwd`" $* > /dev/null 2>&1
+}
+
+djadmin () {
+        django-admin.py $1 --pythonpath=. --settings=$2.tests.settings
+}
+
+pycov () {
+        coverage run $*
+        coverage html -d $HOME/.pythoncoveragehtml
+        firefox $HOME/.pythoncoveragehtml/index.html
+}
+
+applypatch () { patch -p0 < ~/.patch }
+
+bzrdiff () { bzr diff "$*" | colordiff; }
+bzrkompare () { bzr diff "$*" | kompare -; }
+bzrpatch () { bzr diff -r submit:$*; }
+svndiff () { svn diff "$*" | colordiff; }
+svnkompare () { svn diff "$*" | kompare -; }
+
+syncthis () { csync . sftp://$1:`pwd`; }
+
+djangoticket () {
+    cd ~/projects/django
+    mkdir issue$1
+    cd issue$1
+    bzr branch ../trunk django
+    virtualenv .
+    source bin/activate
+    cp -r ../testproject .
+    ln -s `pwd`/django/django `pwd`/testproject/django
+}
+
+djangoruntests () {
+    PYTHONPATH=.. python runtests.py --settings=test_sqlite $*
+}
+
+alias -s pdf=okular
+alias -s mp3=vlc
+alias -s mp4=vlc
+alias -s ogg=vlc
+alias -s vdr=vlc
+alias -s avi=vlc
+alias -s jpg=gwenview
+alias -s jpeg=gwenview
+alias -s gif=gwenview
+alias -s png=gwenview
+alias -s svg=firefox
+alias -s gpx=googleearth
+alias -s zip=dolphin
+alias -s tgz=dolphin
+
+alias -s odt=oowriter
+
+alias -s xml=gvim
+alias -s txt=gvim
+alias -s vim=gvim
+alias -s html=$BROWSER
+
+hash -d p=~/projects
+hash -d d=~/projects/django/trunk
+hash -d src=~/src
+hash -d t=~/tmp
+hash -d df=~/.local/dotfiles
+
+hash -d a=~/projects/angelo
+hash -d bac=~/projects/angelo/bac/trunk
+hash -d gls=~/projects/angelo/gls/trunk
+hash -d horsy=~/projects/horsy/trunk
+hash -d gremu=~/projects/gregor/trunk
+hash -d ts=~/projects/angelo/thirdsector/trunk
+
+hash -d memora=/media/memora

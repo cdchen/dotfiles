@@ -1,0 +1,20 @@
+snippet * "Bulletpoint with checkbox" b
+  * [ ] $0
+endsnippet
+
+snippet [[ "Internal Link"
+[[$0]]
+endsnippet
+
+snippet cl "Start change list for current date"
+`!p
+from datetime import datetime
+res = datetime.now().strftime("%Y-%m-%d")`
+  * $0
+endsnippet
+
+snippet code "Code block with class" b
+{{{class="brush: ${1:python}"
+$0
+}}}
+endsnippet

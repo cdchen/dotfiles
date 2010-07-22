@@ -1,0 +1,159 @@
+########################
+# DJANGO TEMPLATE TAGS #
+########################
+
+snippet todo "Todo" !
+{# TODO(${1:gregor@muellegger.de}): $2 #}
+endsnippet
+
+
+snippet extends
+{% extends "$1" %}
+endsnippet
+
+snippet include
+{% include "$1" %}
+endsnippet
+
+snippet load
+{% load $1 %}
+endsnippet
+
+snippet for
+{% for ${2:object} in ${3:object_list} %}
+    $1
+{% endfor %}
+endsnippet
+
+snippet lifor
+<ul>
+{% for ${2:object} in ${3:object_list} %}
+    <li>$1</li>
+{% endfor %}
+</ul>
+endsnippet
+
+snippet cycle
+{% cycle $1 %}
+endsnippet
+
+snippet if
+{% if $1 %}
+    $2
+{% endif %}
+endsnippet
+
+snippet ifi
+{% if $1 %}$2{% endif %}
+endsnippet
+
+snippet else
+{% else %}
+endsnippet
+
+snippet ifequal
+{% ifequal $1 %}
+    $2
+{% endifequal %}
+endsnippet
+
+snippet ifchanged
+{% ifchanged $1 %}
+    $2
+{% endifchanged %}
+endsnippet
+
+snippet ifnotequal
+{% ifnotequal $1 %}
+    $2
+{% endifnotequal %}
+endsnippet
+
+snippet cache
+{% cache $1 %}
+    $2
+{% endcache %}
+endsnippet
+
+snippet with
+{% with $1 as ${2:object} %}
+    $3
+{% endwith %}
+endsnippet
+
+snippet trans
+{% trans "$1" %}
+endsnippet
+
+snippet i18n
+{% load i18n %}
+endsnippet
+
+snippet raw
+{% raw %}
+    $1
+{% endraw %}
+endsnippet
+
+snippet comment
+{% comment %}
+    $1
+{% endcomment %}
+endsnippet
+
+snippet commenti
+{% comment %}$1{% endcomment %}
+endsnippet
+
+snippet block
+{% block $1 %}
+    $2
+{% endblock %}
+endsnippet
+
+snippet blocki
+{% block $1 %}$2{% endblock %}
+endsnippet
+
+# custom tags
+
+snippet debug
+{% load tdebug %}{% debugcontext %}
+endsnippet
+
+####################
+# DJANGO VARIABLES #
+####################
+
+snippet media
+{{ MEDIA_URL }}
+endsnippet
+
+snippet .
+{{ object$1 }}
+endsnippet
+
+#################
+# REPLACE HTML #
+#################
+
+snippet <form "form with csrf token" !
+<form action="$1" method="${2:post}">{% csrf_token %}
+    $3
+</form>
+endsnippet
+
+snippet <fileform "multipart form with csrf token" !
+<form action="$1" method="${2:post}" enctype="multipart/form-data">
+    $3
+</form>
+endsnippet
+
+############
+# INLCUDES #
+############
+
+snippet pagination "include pagination"
+{% include "pagination.html" %}
+endsnippet
+

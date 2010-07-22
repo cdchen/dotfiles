@@ -1,0 +1,57 @@
+snippet ` "``code``"
+\`\`$1\`\`
+endsnippet
+
+snippet r ""
+:ref:\`$1\`
+endsnippet
+
+snippet ref ""
+.. _$1:
+endsnippet
+
+snippet c ""
+:class:\`$1\`
+endsnippet
+
+snippet f ""
+:func:\`$1\`
+endsnippet
+
+snippet file ""
+:file:\`$1\`
+endsnippet
+
+snippet m ""
+:mod:\`$1\`
+endsnippet
+
+snippet cmd ""
+:command:\`$1\`
+endsnippet
+
+snippet p ""
+:program:\`$1\`
+endsnippet
+
+snippet ac ""
+.. autoclass:: $1
+endsnippet
+
+snippet af ""
+.. autofunction:: $1
+endsnippet
+
+snippet am ""
+.. automodule:: $1
+endsnippet
+
+snippet ameth ""
+.. automethod:: $1
+endsnippet
+
+snippet = "h1"
+`${1:content}`!p
+res = '\naaaaa'# + len(t[1]) * '='`
+$0
+endsnippet

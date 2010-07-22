@@ -1,0 +1,29 @@
+javascript <<EOF
+(function(){
+    var feedPanel = document.createElement("statusbarpanel");
+    feedPanel.setAttribute("id", "feed-panel-clone");
+    feedPanel.appendChild(document.getElementById("feed-button"));
+    feedPanel.firstChild.setAttribute("style", "padding: 0; max-height: 16px;");
+    document.getElementById("status-bar")
+            .insertBefore(feedPanel, document.getElementById("security-button"));
+})();
+EOF
+
+nnoremap <C-l> :tabopen chrome://browser/content/bookmarks/bookmarksPanel.xul<CR>
+nnoremap L :tabopen chrome://browser/content/bookmarks/bookmarksPanel.xul<CR>
+
+nnoremap sw :tabopen wp 
+nnoremap sg :tabopen gg  
+
+nnoremap <C-b> :sidebar Lesezeichen<CR>
+nnoremap <C-b><C-b> :sbclose<CR>
+
+" select all
+inoremap <C-a> <C-Home><C-S-End>
+
+" Tab move
+nnoremap <A-PageUp> :tabmove -1<CR>
+nnoremap <A-PageDown> :tabmove +1<CR>
+
+set nofocuscontent
+set guioptions+=B

@@ -1,0 +1,659 @@
+" Gregor Müllegger's .vimrc file
+" Many tweaks and tips taken from Armin Ronacher's .vimrc
+" Some options stolen from Gary Bernhardt's dotfiles.
+" Thanks!
+
+" Using VIM style rather then VI.
+" Must come first
+set nocompatible
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+set noswapfile
+
+set mousemodel=popup
+
+" Tab setup
+" ---------
+" deactivate the guitabs ... they are too space-consuming
+set guioptions-=e
+" Disable gui menu. Everything is better reachable by commands.
+set guioptions-=m
+" Hiding scrollbar
+set guioptions-=r
+" always show tabline
+set showtabline=2
+
+" Support for yankring
+set viminfo+=!
+
+" Keep more context when scrolling off the end of a buffer
+set scrolloff=5
+
+
+" Enable Syntax Colors
+" --------------------
+"  in CLI mode desert looks better (bunt is GUI only)
+syntax on
+if has("gui_running")
+  colorscheme bunt
+  set guifont=Monospace\ 8
+else
+  colorscheme desert
+endif
+set cursorline
+
+" do syntax highlight syncing from start
+"autocmd BufEnter * :syntax sync fromstart
+
+autocmd BufEnter * :set list
+
+" Move Backup Files to ~/.vim/sessions
+" ------------------------------------
+set backupdir=~/.vim/sessions
+set dir=~/.vim/sessions
+
+" Some File Type Stuff
+" --------------------
+"  Enable filetype plugins and indention
+filetype on
+filetype plugin on
+
+" Leader
+" ------
+" sets leader to ',' and localleader to "\"
+let mapleader="ö"
+let maplocalleader="ä"
+
+" User Interface
+" --------------
+"  activate wildmenu, permanent ruler and disable Toolbar, and add line
+"  highlightng as well as numbers.
+"  And disable the sucking pydoc preview window for the omni completion
+"  also highlight current line and disable the blinking cursor.
+set wildmenu
+set wildignore=*.pyc,*.pyo
+set ruler
+set guioptions-=T
+set completeopt=menu,preview
+set guicursor=a:blinkon0
+
+" Statusbar and Linenumbers
+" -------------------------
+"  Make the command line two lines heigh and change the statusline display to
+"  something that looks useful.
+set cmdheight=1
+set laststatus=2
+set statusline=[%l,%c\ %P%M]\ %f\ %r%h%w
+set number
+set numberwidth=3
+
+" Indention and \t settings
+" -------------------------
+set smarttab
+set tabstop=8
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+set smartindent
+inoremap # X#
+
+" Textwidth to conventional 78 chars.
+set textwidth=78
+
+" Tab page settings
+" -----------------
+function! GuiTabLabel()
+  let label = ''
+  let buflist = tabpagebuflist(v:lnum)
+  if exists('t:title')
+    let label .= t:title . ' '
+  endif
+  let label .= '[' . bufname(buflist[tabpagewinnr(v:lnum) - 1]) . ']'
+  for bufnr in buflist
+    if getbufvar(bufnr, '&modified')
+      let label .= '+'
+      break
+    endif
+  endfor
+  return label
+endfunction
+set guitablabel=%{GuiTabLabel()}
+
+" utf-8 default encoding
+" ----------------------
+set enc=utf-8
+
+" Don't use gvim's toolbar
+" ------------------------
+set winaltkeys=no
+
+" python support
+" --------------
+"  don't highlight exceptions and builtins. I love to override them in local
+"  scopes and it sucks ass if it's highlighted then. And for exceptions I
+"  don't really want to have different colors for my own exceptions
+autocmd FileType python setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+let python_highlight_all=1
+let python_highlight_long_lines=0
+
+" rope
+" ----
+source ~/.vim/custom/rope/rope.vim
+let g:ropevim_global_prefix = '<M-ß>'
+let g:ropevim_enable_shortcuts=1
+nnoremap <C-g><C-d> :RopeGotoDefinition<CR>
+nnoremap <C-g><C-h> :RopeShowDoc<CR>
+nnoremap <C-g><C-f> :RopeFindOccurrences<CR>
+nnoremap <C-g><C-g> :RopeLuckyAssist<CR>
+
+" vimwiki settings
+" ----------------
+autocmd FileType vimwiki setlocal shiftwidth=2 softtabstop=2
+" use Space to toggle list items
+autocmd FileType nnoremap <buffer> <Space> :VimwikiToggleListItem<CR>
+
+" ruby support
+" ------------
+autocmd FileType ruby setlocal shiftwidth=4 softtabstop=4
+
+" php support
+" -----------
+autocmd FileType php setlocal shiftwidth=4 softtabstop=4 foldmethod=indent
+
+" template language support (SGML / XML too)
+" ------------------------------------------
+"  and disable that stupid html rendering (like making stuff bold etc)
+
+fun! s:SelectHTML()
+  let n = 1
+  while n < 50 && n < line("$")
+    " check for django
+    if getline(n) =~ '{%\s*\(extends\|block\|comment\|ssi\|if\|for\|blocktrans\|load\)\>'
+      set ft=htmldjango.html
+      return
+    endif
+    " check for jinja
+    if getline(n) =~ '{%\s*\(extends\|block\|macro\|set\|if\|for\|include\|trans\)\>'
+      set ft=htmljinja
+      return
+    endif
+    " check for mako
+    if getline(n) =~ '<%\(def\|inherit\)'
+      set ft=mako
+      return
+    endif
+    " check for genshi
+    if getline(n) =~ 'xmlns:py\|py:\(match\|for\|if\|def\|strip\|xmlns\)'
+      set ft=genshi
+      return
+    endif
+    let n = n + 1
+  endwhile
+  " go with html
+  set ft=html
+endfun
+
+" filetype plugin xml.vim
+let g:makeElementSuf = '<C-Enter>'
+
+autocmd FileType html,xhtml setlocal filetype=htmldjango.html
+autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako setlocal shiftwidth=4 softtabstop=4
+autocmd BufNewFile,BufRead *.rhtml setlocal ft=eruby
+autocmd BufNewFile,BufRead *.mako setlocal ft=mako
+autocmd BufNewFile,BufRead *.tmpl setlocal ft=htmljinja
+autocmd BufNewFile,BufRead *.py_tmpl setlocal ft=python
+autocmd BufNewFile,BufRead *.py setlocal ft=python
+autocmd BufNewFile,BufRead *.html,*.htm call s:SelectHTML()
+autocmd BufNewFile,BufRead *.snippets setlocal filetype=snippet
+let html_no_rendering=1
+
+let g:closetag_default_xml=1
+autocmd FileType html,htmldjango,htmljinja,eruby,mako let b:closetag_html_style=1
+autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako,php source ~/.vim/scripts/closetag.vim
+autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako setlocal textwidth=0
+
+" CSS
+" ---
+autocmd FileType css setlocal shiftwidth=4 softtabstop=4 filetype=less.css
+
+" Java
+" ----
+" autocmd FileType java setlocal shiftwidth=4 softtabstop=4
+
+" rst
+" ---
+autocmd BufNewFile,BufRead *.txt setlocal filetype=rst shiftwidth=4 softtabstop=4
+autocmd FileType "" setlocal filetype=rst shiftwidth=4 softtabstop=4
+" autocmd FileType rst setlocal shiftwidth=4 softtabstop=4
+
+" C#
+" autocmd FileType cs setlocal softtabstop=8 shiftwidth=8
+
+" vim
+" ---
+autocmd FileType vim setlocal shiftwidth=4 softtabstop=4
+
+" Javascript
+" ----------
+autocmd BufRead,BufNewFile *.js set ft=javascript.jquery
+autocmd FileType javascript setlocal shiftwidth=4 softtabstop=4
+let javascript_enable_domhtmlcss=1
+
+" D
+" -
+" autocmd FileType d setlocal shiftwidth=4 softtabstop=4
+
+" File Browser
+" ------------
+" hide some files and remove stupid help
+let g:explHideFiles='^\.,.*\.sw[po]$,.*\.py[co]$,.*\.bzr$,.*~$'
+let g:explDetailedHelp=0
+
+" Search
+" -------------
+set hlsearch
+set incsearch
+
+" Minibuffer
+" ----------
+let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplMapWindowNavVim = 1
+let g:miniBufExplorerMoreThanOne = 0
+
+" BufClose
+map  :bwipeout<CR>
+
+" set folding stuff
+set foldmethod=indent
+set foldminlines=2
+set foldlevel=99999
+
+" remap snippets key to avoid collidation with supertab
+let g:snippetsEmu_key="<C-Enter>"
+set showbreak=## 
+
+set foldcolumn=2
+
+" Expanding the directory of the current file while in command mode.
+" Use % to represent the directory of the current file e.g.
+if has("unix")
+  cmap %/ <C-R>=substitute(expand("%:p:h"), ' ', '\\ ', 'g') . '/'<CR>/<BS>
+  cmap $$ <C-R>=substitute(expand("%:p:h"), ' ', '\\ ', 'g') . '/'<CR>/<BS>
+  nmap $$ :e <C-R>=substitute(expand("%:p:h"), ' ', '\\ ', 'g') . '/'<CR>/<BS>
+  nnoremap <Leader>gu :e <C-R>=substitute(expand("%:p:h"), ' ', '\\ ', 'g') . '/'<CR>/<BS><CR>
+else
+  cmap %/ <C-R>=substitute(expand("%:p:h"), ' ', '\\ ', 'g') . '\'<CR>/<BS>
+  cmap $$ <C-R>=substitute(expand("%:p:h"), ' ', '\\ ', 'g') . '\'<CR>/<BS>
+  nmap $$ :e <C-R>=substitute(expand("%:p:h"), ' ', '\\ ', 'g') . '\'<CR>/<BS>
+  nnoremap <Leader>gu :e <C-R>=substitute(expand("%:p:h"), ' ', '\\ ', 'g') . '\'<CR>/<BS><CR>
+endif
+
+nnoremap <Leader>gU :e .<CR>
+
+" Show also matching html parenthesis
+set matchpairs+=<:>
+
+" NERDTree configuration
+" ----------------------
+let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\~$']
+let NERDTreeQuitOnOpen=0
+let NERDTreeShowBookmarks=1
+let NERDTreeAutoCenter=1
+let NERDTreeWinSize=35
+let NERDTreeMouseMode=2
+let NERDTreeChDirMode=0
+autocmd FileType nerdtree map <Enter> o
+
+" tags
+" ----
+set tags=.tags,./.tags
+
+" Taglist configuration
+" ---------------------
+let Tlist_Use_Right_Window=1
+let Tlist_Compact_Format=1
+let Tlist_Enable_Fold_Column=0
+let Tlist_File_Fold_Auto_Close=1
+let Tlist_Exit_OnlyWindow = 1
+
+" my custom mappings
+" ------------------
+
+" open yankring window
+nnoremap <silent> <F12> :YRShow<CR>
+" boss key
+nnoremap <silent> <S-F12> ggg?G''
+
+" open nerdtree
+map <F4> <Esc>:NERDTreeToggle <C-R>=substitute(expand("%:p:h"), ' ', '\\ ', 'g') . '/'<CR><CR>
+" Open konsole for current pwd
+"nmap <silent> <F4> :!term --working-directory %/ &<CR><CR>
+nmap <silent> <S-F3> :!bzr explorer . &<CR>
+nmap <silent> <S-F4> :!konsole --workdir . &<CR>
+" Show all lines which are longer than 80 coloumns
+map <S-F10> /\%>80v.\+<Enter>
+" Open taglist
+map <F9> <Esc>:TlistToggle<CR>
+" Delete all whitespace at the end of each line
+map <F10> :%s/\s\+$//e<Enter>''
+" Turn off search highlighting
+nnoremap <silent> <F11> :nohlsearch<CR>
+nnoremap <S-F11> <Esc>:set hlsearch<CR>
+" Open new tab on Ctrl-T
+map <C-T> <Esc>:tabe<CR>
+"
+map ß $
+map <C-Up> 5k
+map <C-Down> 5j
+map <C-Left> 10h
+map <C-Right> 10l
+"
+" Select all in v-mode
+vnoremap <C-a> ggoG$
+vnoremap < <gv
+vnoremap > >gv
+vmap s( <Esc>`>a)<Esc>`<i(<Esc>
+vmap s) <Esc>`>a)<Esc>`<i(<Esc>
+vmap s[ <Esc>`>a]<Esc>`<i[<Esc>
+vmap s] <Esc>`>a]<Esc>`<i[<Esc>
+vmap s{ <Esc>`>a}<Esc>`<i{<Esc>
+vmap s} <Esc>`>a}<Esc>`<i{<Esc>
+vmap s' <Esc>`>a'<Esc>`<i'<Esc>
+vmap s" <Esc>`>a"<Esc>`<i"<Esc>
+"vmap sa <Esc>`></a><Esc>`<<a href=""><Esc>hi
+
+" mapping for folding
+map + zo
+map <C-+> zO
+map - zc
+
+" Copy&Paste
+vnoremap <C-c><C-c> "*y
+vnoremap <C-v><C-v> "*p
+nnoremap <C-c><C-c> "*yy
+nnoremap <C-v><C-v> "*p
+inoremap <C-v><C-v> <Esc>"*pa
+
+" HTML dingens
+"vmap sb "zdi<strong><C-R>z</strong><Esc>
+"vmap si "zdi<em><C-R>z</em><Esc>
+"vmap sp "zdi<p><C-R>z</p><Esc>
+"vmap sd "zdi<div><C-R>z</div><Esc>
+"vmap ss "zdi<span><C-R>z</span><Esc>
+"vmap s<Enter> "zdi<CR><C-R>z<CR><Esc>
+
+set viminfo='10,f50,<25,s10,h,!,%,@50,:50,/50
+
+" UltiSnips config
+let g:UltiSnipsExpandTrigger="<C-Space>"
+
+" SuperTab Config
+let g:SuperTabLongestHighlight = 1
+
+" Install my django projects
+source ~/.vim/plugin/django_projects.vim
+"
+" Function to set parameters for Python scripts that use
+" spaces for indention. This is also the default. YMMV.
+function CfgSpaceIndent(...)
+  if a:0 == 1
+    let spaces = a:1
+  else
+    let spaces = 4
+  endif
+  setlocal expandtab " use spaces in place of tabs.
+  setlocal tabstop=8 " number of spaces for a tab.
+  " number of spaces for a tab in editing operations.
+  exe "setlocal softtabstop=".spaces 
+  " number of spaces for indent (>>, <<, ...)
+  exe "setlocal shiftwidth=".spaces 
+endfunction
+
+" Function to set parameters for Python scripts that use
+" tabs for indention.
+function CfgTabIndent(...)
+  if a:0 == 1
+    let spaces = a:1
+  else
+    let spaces = 8
+  endif
+  set noexpandtab
+  exe 'set tabstop='.spaces
+  exe 'set softtabstop='.spaces
+  exe 'set shiftwidth='.spaces
+endfunction
+
+" Set tabstop, softtabstop and shiftwidth to the same value
+command! -nargs=* Stab call Stab()
+function! Stab()
+  let l:tabstop = 1 * input('set tabstop = softtabstop = shiftwidth = ')
+  if l:tabstop > 0
+    let &l:sts = l:tabstop
+    let &l:ts = l:tabstop
+    let &l:sw = l:tabstop
+  endif
+  call SummarizeTabs()
+endfunction
+ 
+function! SummarizeTabs()
+  try
+    echohl ModeMsg
+    echon 'tabstop='.&l:ts
+    echon ' shiftwidth='.&l:sw
+    echon ' softtabstop='.&l:sts
+    if &l:et
+      echon ' expandtab'
+    else
+      echon ' noexpandtab'
+    endif
+  finally
+    echohl None
+  endtry
+endfunction
+
+" Don't use Ex mode, use Q for formatting
+map Q gq
+
+nnoremap d<lt> da<lt>
+"map <C-w> <ESC>:wq<Enter>
+"
+nnoremap <M-Down> :cnext<CR>
+nnoremap <M-Up> :cprevious<CR>
+
+let jslint_command_options = ''
+let jslint_highlight_color = ''
+
+let vt_mapping = '<C-G><C-T>'
+
+nnoremap <C-s> <Esc>:%s/<C-R><C-W>//g<Left><Left>
+
+nnoremap <leader>e :FilesystemExplorerFromHere<CR>
+nnoremap <C-B> :BufExplorer<CR>
+
+nnoremap <Tab> >>
+nnoremap <S-Tab> <lt><lt>
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <lt>gv
+
+nmap <silent> <Leader>tt :TTags<CR>
+nmap <silent> <Leader>tc :TTags c<CR>
+nmap <silent> <Leader>rr :TRecentlyUsedFiles<CR>
+nmap <silent> <Leader>ff :TSelectFiles<CR>
+nmap <silent> <Leader>fa :TSelectFilesInSubdirs<CR>
+nmap <unique> <silent> <Leader>m <Plug>MarkSet
+nmap <unique> <silent> <Leader>mm <Plug>MarkSet
+nmap <unique> <silent> <Leader>mr <Plug>MarkRegex
+nmap <F2> :FilesystemExplorerFromHere<CR>
+nmap <S-F2> :FilesystemExplorer<CR>
+nmap <F3> :BufferExplorer<CR>
+
+" sessionman mappings
+" -------------------
+nnoremap <Leader>pl :SessionList<CR>
+nnoremap <Leader>po :SessionOpen<Space>
+nnoremap <Leader>pd :SessionOpenLast<CR>
+nnoremap <Leader>ps :SessionSave<CR>
+nnoremap <Leader>pa :SessionSaveAs<Space>
+nnoremap <Leader>pc :SessionSaveAs<Space>
+
+" Split lines and indents the created one
+nnoremap <S-k> i<CR><Tab><Esc>lk:s/\s\+$//<Enter>j0w
+
+nnoremap c_ ct_
+nnoremap d_ df_
+nnoremap d( yi(va(p
+nnoremap d[ yi[va[p
+nnoremap d{ yi{va{p
+nnoremap d< yi<va<p
+
+cnoremap <C-Space> <C-\>esherlock#completeForward()<CR><BS>
+
+nnoremap <C-G><C-V> :windo diffthis<CR>
+nnoremap <M-i> <C-I>
+nnoremap <M-o> <C-O>
+
+" Sparkup
+" -------
+let g:sparkupExecuteMapping = '<C-e>'
+let g:sparkupNextMapping = 'öe'
+
+let $PATH=$HOME.'/.vim/bin:'.$HOME.'/.local/bin:'.$PATH
+
+" Testing django projects
+" -----------------------
+
+let g:makeprg_django_app = 'bin/django\ test\ -v\ 0'
+let g:makeprg_django_project = 'bin/test'
+set errorformat=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+
+function! RunTestsForFile(args)
+    if @% =~ '\.py$'
+        let expandstr = '%:p:h' " dirname
+        while expand(expandstr) != '/'
+            let testpath = expand(expandstr)
+            if len(getfperm(testpath . '/tests')) > 0 || len(getfperm(testpath . '/tests.py')) > 0
+                call RunTests(expand(expandstr . ':t'), a:args)
+                return
+            endif
+            let expandstr .= ':h'
+        endwhile
+    endif
+    call RunTests('', a:args)
+endfunction
+
+function! RunTests(target, args)
+    silent ! echo
+    silent ! echo -e "\033[1;36mRunning all unit tests\033[0m"
+    silent w
+    if len(a:target)
+        execute 'set makeprg=' . g:makeprg_django_app
+    else
+        execute 'set makeprg=' . g:makeprg_django_project
+    endif
+    exec "make! " . a:target . " " . a:args
+endfunction
+
+function! JumpToError()
+    let has_valid_error = 0
+    for error in getqflist()
+        if error['valid']
+            let has_valid_error = 1
+            break
+        endif
+    endfor
+    if has_valid_error
+        for error in getqflist()
+            if error['valid']
+                break
+            endif
+        endfor
+        let error_message = substitute(error['text'], '^ *', '', 'g')
+        silent cc!
+        exec ":sbuffer " . error['bufnr']
+        call RedBar()
+        echo error_message
+    else
+        call GreenBar()
+        echo "All tests passed"
+    endif
+endfunction
+
+function! RedBar()
+    hi RedBar ctermfg=white ctermbg=red guibg=red
+    echohl RedBar
+    echon repeat(" ",&columns - 1)
+    echohl
+endfunction
+
+function! GreenBar()
+    hi GreenBar ctermfg=white ctermbg=green guibg=green
+    echohl GreenBar
+    echon repeat(" ",&columns - 1)
+    echohl
+endfunction
+
+nnoremap <leader>a :call RunTests('', '')<cr>:redraw<cr>:call JumpToError()<cr>
+nnoremap <leader>y :call RunTestsForFile('--failfast')<cr>:redraw<cr>:call JumpToError()<cr>
+
+
+" Extract/Inline variables
+function! ExtractVariable()
+    let name = input("Variable name: ")
+    if name == ''
+        return
+    endif
+    " Enter visual mode (not sure why this is needed since we're already in
+    " visual mode anyway)
+    normal! gv
+
+    " Replace selected text with the variable name
+    exec "normal c" . name
+    " Define the variable on the line above
+    exec "normal! O" . name . " = "
+    " Paste the original selected text to be the variable value
+    normal! $p
+endfunction
+
+function! InlineVariable()
+    " Copy the variable under the cursor into the 'a' register
+    " XXX: How do I copy into a variable so I don't pollute the registers?
+    :normal "ayiw
+    " It takes 4 diws to get the variable, equal sign, and surrounding
+    " whitespace. I'm not sure why. diw is different from dw in this respect.
+    :normal 4diw
+    " Delete the expression into the 'b' register
+    :normal "bd$
+    " Delete the remnants of the line
+    :normal dd
+    " Go to the end of the previous line so we can start our search for the
+    " usage of the variable to replace. Doing '0' instead of 'k$' doesn't
+    " work; I'm not sure why.
+    normal k$
+    " Find the next occurence of the variable
+    exec '/\<' . @a . '\>'
+    " Replace that occurence with the text we yanked
+    exec ':.s/\<' . @a . '\>/' . @b
+endfunction
+
+vnoremap <leader>rv :call ExtractVariable()<cr>
+nnoremap <leader>ri :call InlineVariable()<cr>
+
+" Find comment
+map <leader><leader># /^ *#<cr>:nohlsearch<cr>
+" Find function
+map <leader><leader>f /^ *def\><cr>:nohlsearch<cr>
+" Find class
+map <leader><leader>c /^ *class\><cr>:nohlsearch<cr>
+" Find if
+map <leader><leader>i /^ *if\><cr>:nohlsearch<cr>
+" Delete function
+" \%$ means 'end of file' in vim-regex-speak
+map <leader>df d/\(^ *def\>\)\\|\%$<cr>
+com! FindLastImport :execute'normal G<CR>' | :execute':normal ?^\(from\|import\)\><CR>'
+map <leader><leader>m :FindLastImport<cr>
+
+" Spellchecking
+nmap <silent> <leader>c :set spell!<CR>
+set spelllang=en_gb

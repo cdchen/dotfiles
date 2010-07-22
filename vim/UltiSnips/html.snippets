@@ -1,0 +1,183 @@
+snippet doctype "HTML 4.01 strict doctype"
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+endsnippet
+
+snippet doctype "HTML 4.01 transitional doctype"
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+endsnippet
+
+snippet doctype "HTML 4.01 frameset doctype"
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+endsnippet
+
+snippet doctype "XHTML 1.0 strict doctype"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+endsnippet
+
+snippet doctype "XHTML 1.0 transitional doctype"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+endsnippet
+
+snippet doctype "XHTML 1.0 frameset doctype"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+endsnippet
+
+snippet doctype "XHTML 1.1 doctype"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+endsnippet
+
+snippet doctype "HTML 5"
+<!DOCTYPE html>
+endsnippet
+
+########
+# HEAD #
+########
+
+snippet <ct
+<meta http-equiv="Content-Type" content="$1" />
+endsnippet
+
+snippet <cs
+<meta http-equiv="Content-Type" content="text/html;charset=${1:utf-8}" />
+endsnippet
+
+snippet <html
+<html lang="$1">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>$2</title>
+</head>
+<body>
+    $2
+</body>
+</html>
+endsnippet
+
+##############
+# ATTRIBUTES #
+##############
+
+snippet c
+class="$1"
+endsnippet
+
+# alias
+snippet class
+class="$1"
+endsnippet
+
+snippet i
+id="$1"
+endsnippet
+
+# alias
+snippet id
+id="$1"
+endsnippet
+
+snippet s
+style="$1"
+endsnippet
+
+########
+# TAGS #
+########
+
+snippet <linkcss
+<link rel="stylesheet" href="$1" type="text/css" media="${2:screen}" />
+endsnippet
+
+snippet <style
+<style type="text/css">
+    $1
+</style>
+endsnippet
+
+snippet <scriptsrc
+<script type="text/javascript" src="$1"></script>
+endsnippet
+
+snippet <script
+<script type="text/javascript">//<![CDATA[
+    $1
+//]]></script>
+endsnippet
+
+snippet <form
+<form action="$1" method="${2:post}">
+    $3
+</form>
+endsnippet
+
+snippet <fileform
+<form action="$1" method="${2:post}" enctype="multipart/form-data">
+    $3
+</form>
+endsnippet
+
+snippet <input
+<input type="$1"${2/.+/ name="/}${2:name}${2/.+/"/}${3/.+/ id="/}${3:id}${3/.+/"/}$4 $5/>
+endsnippet
+
+snippet <itext
+<input type="text"${1/.+/ name="/}${1:name}${1/.+/"/}${2/.+/ id="/}${2:id}${2/.+/"/}$3 $4/>
+endsnippet
+
+snippet <isubmit
+<input type="submit" value="$1" $2/>
+endsnippet
+
+#################
+# YAML snippets #
+#################
+
+snippet subcol "YAML Subcolumns"
+<div class="subcolumns">
+    $0
+</div>
+endsnippet
+
+snippet subcl "YAML left column"
+<div class="subcl">
+    $0
+</div>
+endsnippet
+
+snippet subcr "YAML right column"
+<div class="subcr">
+    $0
+</div>
+endsnippet
+
+snippet col "YAML column"
+<div class="c$1">
+</div>
+endsnippet
+
+snippet coll "YAML left column"
+<div class="c$1l"><div class="subcl">
+    $0
+</div></div>
+endsnippet
+
+snippet colc "YAML middle column"
+<div class="c$1l"><div class="subc">
+    $0
+</div></div>
+endsnippet
+
+snippet colr "YAML right coloumn"
+<div class="c$1r"><div class="subcr">
+    $0
+</div></div>
+endsnippet
+
+####################
+# Service snippets #
+####################
+
+snippet fpo "fpoimg.com placeholder image" w
+http://fpoimg.com/$1
+endsnippet
+

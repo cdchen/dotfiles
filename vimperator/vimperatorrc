@@ -1,0 +1,7 @@
+"2.1 (created: 2009/05/21 13:13:06)
+
+set guioptions=rbN
+set runtimepath=/home/gregor/.vimperator
+source! /home/gregor/.vimperatorrc.local
+
+" vim: set ft=vimperator:

@@ -1,0 +1,984 @@
+###########################################################################
+#                            TEXTMATE SNIPPETS                            #
+###########################################################################
+
+#! header
+snippet #! "Shebang header for python scripts" b
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+endsnippet
+
+snippet cod "UTF-8 Encoding" b
+# -*- coding: utf-8 -*-
+endsnippet
+
+snippet ifmain "ifmain" b
+if __name__ == '__main__':
+    ${1:main()}$0
+endsnippet
+
+#############
+# os module #
+#############
+
+snippet path
+path = os.path.dirname(__file__)
+endsnippet
+
+snippet join "os.path.join" i
+os.path.join($1, $2)$0
+endsnippet
+
+snippet dn "os.path.dirname" i
+
+endsnippet
+
+##########
+# COMMON #
+##########
+snippet class b
+class ${1:Class}(${2:object}):
+    def __init__(self${4/([^,])?(.*)/(?1:, )/}${4:arg}):
+${2/object$|(.+)/(?1:        $0.__init__\(self\)\n\n)/}${4/(\A\s*,\s*\Z)|,?\s*([A-Za-z_][A-Za-z0-9_]*)\s*(=[^,]*)?(,\s*|$)/(?2:        self.$2 = $2\n)/g}
+endsnippet
+
+snippet defs b
+def ${1:}(self, ${2:*args, **kwargs}):
+    super($3, self).$1($2)
+endsnippet
+
+snippet dec b
+def $1(func):
+    from functools import wraps
+    @wraps(func)
+    def decorated(${2:*args, **kwargs}):
+        ${3:pass}
+        return func(${4:$2})
+    return decorated
+endsnippet
+
+snippet .
+self.
+endsnippet
+
+snippet ..
+self.__class__.
+endsnippet
+
+snippet ** i
+*args, **kwargs
+endsnippet
+
+snippet super
+super($1, self).${2:__init__}($3)
+endsnippet
+
+snippet definit "__init__ method" b
+def __init__(self, *args, **kwargs):
+    super($1, self).__init__(*args, **kwargs)
+endsnippet
+
+snippet i b
+import $0
+endsnippet
+
+snippet from b
+from ${1:} import ${2:}
+endsnippet
+
+# alias
+snippet f b
+from ${1:} import ${2:}
+endsnippet
+
+snippet fm b
+from ${1:}.models import ${2:}
+endsnippet
+
+snippet ''' i
+'''
+$1
+'''
+endsnippet
+
+##########
+# IMPORT #
+##########
+
+snippet idt b
+from datetime import datetime
+endsnippet
+
+snippet idec b
+from decimal import Decimal
+endsnippet
+
+# Django import
+
+snippet dj_ b
+from django.utils.translation import ugettext_lazy as _
+endsnippet
+
+snippet djconf b
+from django.conf import settings
+endsnippet
+
+snippet djhttp b
+from django.http import ${1:HttpResponseRedirect}
+endsnippet
+
+snippet djmail "Import django.core.mail.send_mail" b
+from django.core.mail import send_mail
+endsnippet
+
+snippet djmsg "Import django.contrib.messages" b
+from django.contrib import messages
+endsnippet
+
+snippet djmodel b
+from django.db import models
+endsnippet
+
+snippet djquery b
+from django.db.models import query
+endsnippet
+
+snippet djtemplate b
+from django import template
+endsnippet
+
+snippet djform b
+from django import forms
+endsnippet
+
+snippet djadmin b
+from django.contrib import admin
+endsnippet
+
+snippet djhay b
+from haystack import indexes
+from haystack.sites import site
+endsnippet
+
+snippet djor404 b
+from django.shortcuts import get_object_or_404
+endsnippet
+
+snippet djrender b
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+endsnippet
+
+snippet djurlr b
+from django.core import urlresolvers
+endsnippet
+
+snippet djrev b
+from django.core.urlresolvers import reverse
+endsnippet
+
+snippet djct b
+from django.contrib.contenttypes.models import ContentType
+endsnippet
+
+snippet djuser b
+from django.contrib.auth.models import User
+endsnippet
+
+snippet djsite b
+from django.contrib.sites.models import Site
+endsnippet
+
+snippet djtest b
+from django.test import TestCase
+endsnippet
+
+snippet djcache b
+from djanco.core.cache import cache
+endsnippet
+
+snippet djviews b
+from django.views.${1:generic} import ${2:${1/generic/list_detail/}}
+endsnippet
+
+##################
+# CUSTOM IMPORTS #
+##################
+
+snippet imedia b
+from mediastore.models import Media
+endsnippet
+
+snippet imediatype b
+from mediastore.mediatypes.$1.models import $2
+endsnippet
+
+snippet ipubman b
+from django_publicmanager.managers import GenericPublicManager, PublicOnlyManager
+endsnippet
+
+snippet iaf b
+import autofixture
+endsnippet
+
+###########
+# LOGGING #
+###########
+
+snippet ld
+logging.debug('$1')
+endsnippet
+
+snippet li
+logging.info('$1')
+endsnippet
+
+snippet lw
+logging.warning('$1')
+endsnippet
+
+snippet le
+logging.error('$1')
+endsnippet
+
+snippet lc
+logging.critical('$1')
+endsnippet
+
+###############
+# DJANGO INIT #
+###############
+
+snippet admint "admin.py template" b
+# -*- coding: utf-8 -*-
+from django.contrib import admin
+from django import forms
+from django.utils.translation import ugettext_lazy as _
+from `!p res = os.path.splitext(os.path.basename(os.path.dirname(path)))[0]`.models import $1
+
+
+$0
+endsnippet
+
+snippet formt "forms.py template" b
+# -*- coding: utf-8 -*-
+from django import forms
+from django.utils.translation import ugettext_lazy as _
+from `!p res = os.path.splitext(os.path.basename(os.path.dirname(path)))[0]`.models import $1
+
+
+$0
+endsnippet
+
+snippet modelt "models.py template" b
+# -*- coding: utf-8 -*-
+from django.db import models
+from django.utils.translation import ugettext_lazy as _
+
+
+$0
+endsnippet
+
+snippet templatetagst "templatetags/lib.py template" b
+# -*- coding: utf-8 -*-
+from django import template
+
+register = template.Library()
+
+
+$0
+endsnippet
+
+snippet testt "tests.py template" b
+# -*- coding: utf-8 -*-
+from django.core import mail
+from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
+from django.test import TestCase
+from `!p
+module = os.path.dirname(path)
+if module.endswith('tests'):
+    module = os.path.dirname(module)
+res = os.path.basename(module)
+`.models import $1
+
+
+class Test$1(TestCase):
+    def test_$2(self):
+        ${3:pass}
+endsnippet
+
+snippet viewt "views.py template" b
+# -*- coding: utf-8 -*-
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+from django.views.generic import list_detail
+from `!p
+module = os.path.dirname(path)
+if module.endswith('views'):
+    module = os.path.dirname(module)
+res = os.path.basename(module)
+`.models import $1
+
+
+def ${2:index}(request):
+    ${3:pass}
+endsnippet
+
+####################
+# DJANGO URL FILES #
+####################
+
+snippet urlconf b
+from django.conf.urls.defaults import *
+
+urlpatterns = patterns('${1:}',
+    url(r'^${2:}', ${3:}, name='${4:}'),$0
+)
+endsnippet
+
+snippet url
+url(r'^${2:}', ${3:}, name='${4:}'),$0
+endsnippet
+
+snippet render b
+return render_to_response('${1:}', {
+    ${2:},
+}, context_instance=RequestContext(request))
+endsnippet
+
+snippet modeladmin b
+class ${1:}Admin(admin.ModelAdmin):
+    list_display = (${2:},)
+    date_hierarchy = '${3:}'
+    search_fields = (${4:},)
+    $0
+
+admin.site.register($1, $1Admin)
+endsnippet
+
+#############
+# DEBUGGING #
+#############
+
+snippet pdb
+import pdb; pdb.set_trace()
+endsnippet
+
+snippet ipdb
+import ipdb; ipdb.set_trace()
+endsnippet
+
+snippet ipy
+import IPython; IPython.Shell.IPShell().mainloop()
+endsnippet
+
+##############
+# PROPERTIES #
+##############
+snippet prop "Read Only Property" b
+@property
+def ${1:property}(self):
+    ${2:return self._$1}$0
+endsnippet
+
+snippet roprop "Read Only Property" b
+@property
+def ${1:property}(self):
+    ${2:return self._$1}$0
+endsnippet
+
+snippet rwprop "Read write property" b
+def ${1:property}():
+    ${2/.+/(?0:""")/}${2:The RW property $1}${2/.+/(?0:"""\n        )/}def fget(self):
+        return self._$1$0
+    def fset(self, value):
+        self._$1 = value
+    return locals()
+$1 = property(**$1())
+endsnippet
+
+snippet defcache
+def $1(self):
+    if not hasattr(self, '_$1'):
+        self._$1 = $2
+    return self._$1
+endsnippet
+
+##########################
+# Try / Except / Finally #
+##########################
+snippet try "Try / Except" b
+try:
+    ${1:pass}
+except ${2:Exception}, ${3:e}:
+    ${4:raise $3}
+endsnippet
+
+snippet try "Try / Except / Else" b
+try:
+    ${1:pass}
+except ${2:Exception}, ${3:e}:
+    ${4:raise $3}
+else:
+    ${5:pass}
+endsnippet
+
+snippet try "Try / Except / Finally" b
+try:
+    ${1:pass}
+except ${2:Exception}, ${3:e}:
+    ${4:raise $3}
+else:
+    ${5:pass}
+endsnippet
+
+snippet try "Try / Except / Else / Finally" b
+try:
+    ${1:pass}
+except${2: ${3:Exception}, ${4:e}}:
+    ${5:raise}
+else:
+    ${6:pass}
+finally:
+    ${7:pass}
+endsnippet
+
+###########
+# TESTING #
+###########
+
+
+snippet te "test function" b
+def test_$1(self):
+    $0
+endsnippet
+
+snippet as "Assert 0" b
+assert 0, $0
+endsnippet
+
+snippet ae "Assert equal" b
+self.assertEquals($1, $2)
+endsnippet
+
+snippet ane "Assert equal" b
+self.assertNotEquals($1, $2)
+endsnippet
+
+snippet at "Assert True" b
+self.assertTrue($1)
+endsnippet
+
+snippet af "Assert False" b
+self.assertFalse($1)
+endsnippet
+
+snippet aae "Assert almost equal" b
+self.assertAlmostEqual($1, $2)
+endsnippet
+
+snippet ar "Assert raises" b
+self.assertRaises($1, ${2:func}${3/.+/, /}${3:arguments})
+endsnippet
+
+# Django assertions
+
+snippet ast
+self.assertEqual(response.status_code, $1)
+endsnippet
+
+snippet a200
+self.assertEqual(response.status_code, 200)
+endsnippet
+
+snippet a302
+self.assertEqual(response.status_code, 302)
+endsnippet
+
+snippet a404
+self.assertEqual(response.status_code, 404)
+endsnippet
+
+snippet a500
+self.assertEqual(response.status_code, 500)
+endsnippet
+
+snippet are
+self.assertRedirects(response, reverse('$1'$2))
+endsnippet
+
+snippet act
+self.assertTrue(response.context['$1'])
+endsnippet
+
+snippet acf
+self.assertFalse(response.context['$1'])
+endsnippet
+
+snippet ace
+self.assertEqual(response.context['$1'], $2)
+endsnippet
+
+snippet arcon
+self.assertContains(response, $1)
+endsnippet
+
+snippet atpl
+self.assertTemplateUsed(response, $1)
+endsnippet
+
+snippet antpl
+self.assertTemplateNotUsed(response, $1)
+endsnippet
+
+# Django client shortcuts
+
+snippet cl
+response = self.client.$1(reverse('$2'${3/.+/, args=(/}${3:args}${3/.+/)/}${4/.+/, kwargs={/}${4:kwargs}${4/.+/\}/})${5/.+/, {/}${5:data}${5/.+/\}/})
+endsnippet
+
+snippet clst
+response = self.client.$1(reverse('$2'${3/.+/, args=(/}${3:args}${3/.+/)/}${4/.+/, kwargs={/}${4:kwargs}${4/.+/\}/})${5/.+/, {/}${5:data}${5/.+/\}/})
+self.assertEqual(response.status_code, $6)
+endsnippet
+
+snippet re
+request = self.request.$1('${2:/}', $3)
+response = ${4:view}(request, $5)
+endsnippet
+
+snippet rest
+request = self.request.$1('${2:/}', $3)
+response = ${4:view}(request, $5)
+self.assertEqual(response.status_code, $6)
+endsnippet
+
+# testcase
+
+snippet djtestcase b
+class Test${1:}(TestCase):${2/.+/\n    def setUp(self):\n        /}${2:pass}${2/.+/\n/}${3/.+/\n    def tearDown(self):\n        /}${3:pass}${3/.+/\n/}
+    def test_${4:}(self):
+        $0
+endsnippet
+
+# expecter gadget
+
+snippet e "expect"
+expect($1) ${2:==} $3
+endsnippet
+
+snippet ee "expect.raises"
+with expect.raises($1):
+    $0
+endsnippet
+
+########
+# i18n #
+########
+
+snippet _ "_" w
+_(u'${1:}'${1/([^%]|%%)*(%.)?.*/(?2: % :\))/}$2${1/([^%]|%%)*(%.)?.*/(?2:\))/}
+endsnippet
+
+################
+# Django Admin #
+################
+
+snippet fieldsets "Django Admin Fieldsets" b
+fieldsets = (
+    fieldset$0
+)
+endsnippet
+
+snippet fieldset "Django Admin Fieldset" b
+(_('$1'), {
+    'classes': ('wide',),
+    'fields': (
+        $0
+    ),
+}),
+endsnippet
+
+####################
+# MODEL DEFINITION #
+####################
+
+snippet model b
+class ${1:}(${2:models.Model}):
+    ${3:}
+
+    class Meta:
+        verbose_name = _('$4')
+        verbose_name_plural = _('$4$5')
+
+    def __unicode__(self):
+        return self.${7:title}
+
+    @models.permalink
+    def get_absolute_url(self):
+        return '${8:}-detail', (self.slug,), {}
+endsnippet
+
+snippet Meta b
+class Meta:
+    verbose_name = _('${2:}')
+    verbose_name_plural = _('${2:}${3:}')
+    ordering = ('${1:sort_value}',)
+endsnippet
+
+snippet manager b
+class ${1:}Manager(models.Manager):
+    def get_query_set(self):
+        queryset = super(${1:}Manager, self).get_query_set()
+        return queryset
+
+    def get_by_natural_key(self, $2):
+        return self.get($2)
+endsnippet
+
+snippet queryset b
+class ${1:}QuerySet(QuerySet):
+    ${2:pass}
+endsnippet
+
+################
+# MODEL FIELDS #
+################
+
+snippet mauto
+models.AutoField($1)$2
+endsnippet
+
+snippet mbool
+models.BooleanField(default=${1:True})$2
+endsnippet
+
+snippet mchar
+models.CharField(max_length=${1:50})$2
+endsnippet
+
+snippet mcsi
+models.CommaSeparatedIntegerField(max_length=${1:50})$2
+endsnippet
+
+snippet mdate
+models.DateField($1)$2
+endsnippet
+
+snippet mdatetime
+models.DateTimeField($1)$2
+endsnippet
+
+snippet mdec
+models.DecimalField(max_digits=$1, decimal_places=$2)$3
+endsnippet
+
+snippet memail
+models.EmailField($1)$2
+endsnippet
+
+snippet mfile
+models.FileField($2upload_to='$1')$2
+endsnippet
+
+snippet mfilep
+models.FilePathField($2path='$1')$2
+endsnippet
+
+snippet mfloat
+models.FloatField($3max_digits=$1, decimal_places=$2)$3
+endsnippet
+
+snippet mimage
+models.ImageField($2upload_to='$1')$2
+endsnippet
+
+snippet mint
+models.IntegerField($1)$2
+endsnippet
+
+snippet mip
+models.IPAddressField($1)$2
+endsnippet
+
+snippet mnull
+models.NullBooleanField($1)$2
+endsnippet
+
+snippet mphone
+models.PhoneNumberField($1)$2
+endsnippet
+
+snippet mpint
+models.PositiveIntegerField($1)$2
+endsnippet
+
+snippet mpsint
+models.PositiveSmallIntegerField($1)$2
+endsnippet
+
+snippet mslug
+models.SlugField($1unique=True)$2
+endsnippet
+
+snippet msint
+models.SmallIntegerField($1)$2
+endsnippet
+
+snippet mtext
+models.TextField($1)$2
+endsnippet
+
+snippet mtime
+models.TimeField($1)$2
+endsnippet
+
+snippet murl
+models.URLField($2${1:verify_exists=True})$3
+endsnippet
+
+snippet muss
+models.USStateField($1)$2
+endsnippet
+
+snippet mxml
+models.XMLField($2schema_path="$1")$3
+endsnippet
+
+# relations
+snippet mfor
+models.ForeignKey($1)$2
+endsnippet
+
+snippet mm2m
+models.ManyToManyField($1)$2
+endsnippet
+
+snippet mo2o
+models.OneToOneField($1)$2
+endsnippet
+
+# misc
+snippet mman
+models.Manager()
+endsnippet
+
+snippet icreated b
+from django_extensions.db.fields import CreationDateTimeField, \
+    ModificationDateTimeField
+endsnippet
+
+snippet created b
+created = CreationDateTimeField()
+endsnippet
+
+snippet modified b
+modified = ModificationDateTimeField()
+endsnippet
+
+# field attributes helper
+snippet blank "blank" w
+null=True, blank=True
+endsnippet
+
+snippet null "null" w
+null=True
+endsnippet
+
+# custom model extensions
+snippet pubman
+objects = GenericPublicManager()
+public = PublicOnlyManager()
+endsnippet
+
+snippet mtags
+TagField()
+endsnippet
+
+#########
+# FORMS #
+#########
+
+# definition
+
+snippet form
+class ${1:}(forms.Form):
+    ${2:pass}
+endsnippet
+
+snippet modelform
+class ${1:}(forms.ModelForm):
+    class Meta:
+        model = $2${3/.+/\n        fields = (/}${3:fields}${3/.+/,)/}
+endsnippet
+
+# fields
+
+snippet fbool
+forms.BooleanField(label=_('${1:}')${2/.+/, default=/}${2:True})
+endsnippet
+
+snippet fchar
+forms.CharField(label=_('${1:}')${2/.+/, max_length=/}${2:50})
+endsnippet
+
+snippet fchoice
+forms.ChoiceField(label=_('${1:}'), choices=$2)
+endsnippet
+
+snippet fdate
+forms.DateField(label=_('${1:}'))
+endsnippet
+
+snippet fdatetime
+forms.DateTimeField(label=_('${1:}'))
+endsnippet
+
+# alias
+snippet fdt
+forms.DateTimeField(label=_('${1:}'))
+endsnippet
+
+snippet fdec
+forms.DecimalField(label=_('${1:}'), max_digits=$2, decimal_places=$3)
+endsnippet
+
+snippet femail
+forms.EmailField(label=_('${1:}'))
+endsnippet
+
+snippet ffile
+forms.FileField(label=_('${1:}'))
+endsnippet
+
+snippet ffilep
+forms.FilePathField(label=_('${1:}'), path='$2')
+endsnippet
+
+snippet ffloat
+forms.FloatField(label=_('${1:}'))
+endsnippet
+
+snippet fimage
+forms.ImageField(label=_('${1:}'))
+endsnippet
+
+snippet fint
+forms.IntegerField(label=_('${1:}'))
+endsnippet
+
+snippet fip
+forms.IPAddressField(label=_('${1:}'))
+endsnippet
+
+snippet fmchoice
+forms.MultipleChoiceField(label=_('${1:}'), choices=$2)
+endsnippet
+
+snippet fmodel
+forms.ModelChoiceField(label=_('${1:}'), queryset=$2)
+endsnippet
+
+snippet fmmodel
+forms.ModelMultipleChoiceField(label=_('${1:}'), queryset=$2)
+endsnippet
+
+snippet fmulti
+forms.MultipleChoiceField(label=_('${1:}'))
+endsnippet
+
+snippet fnull
+forms.NullBooleanField(label=_('${1:}'))
+endsnippet
+
+snippet fregex
+forms.RegexField(label=_('${1:}'))
+endsnippet
+
+snippet ftext
+forms.CharField(label=_('${1:}'), widget=forms.Textarea)
+endsnippet
+
+snippet ftime
+forms.TimeField(label=_('${1:}'))
+endsnippet
+
+snippet furl
+forms.URLField(label=_('${1:}')${2/.+/, verify_exists=/}${2:True})
+endsnippet
+
+snippet fcombo
+forms.ComboField(label=_('${1:}'), fields=($2,))
+endsnippet
+
+snippet fmultival
+forms.MultiValueField(label=_('${1:}'), fields=($2,))
+endsnippet
+
+snippet fsplittime
+forms.SplitDateTimeField(label=_('${1:}'))
+endsnippet
+
+# form helpers
+
+snippet formsave
+def save(self, commit=True, *args, **kwargs):
+    obj = super(${1:}, self).save(commit=False, *args, **kwargs)
+    $0
+    if commit:
+        obj.save()
+    return obj
+endsnippet
+
+snippet viewform
+if request.method == 'POST':
+    ${1:form} = ${2:Form}(request.POST${3/.+/, /}${3:request.FILES${4:}})
+    if $1.is_valid():
+        $0
+        return HttpResponseRedirect(reverse('$5'))
+else:
+    $1 = $2($6)
+endsnippet
+
+##########################
+# SEARCHINDEX DEFINITION #
+##########################
+
+snippet modelindex b
+class $1Index(${2:indexes.SearchIndex}):
+    text = indexes.CharField(document=True, use_template=True)
+
+    def get_query_set(self):
+        return $1.objects.all()
+
+site.register($1, $1Index)
+endsnippet
+
+snippet sbool
+indexes.BooleanField(model_attr=${1:})
+endsnippet
+
+snippet schar
+indexes.CharField(model_attr=${1:})
+endsnippet
+
+snippet sdate
+indexes.DateField(model_attr=${1:})
+endsnippet
+
+snippet sdatetime
+indexes.DateTimeField(model_attr=${1:})
+endsnippet
+
+snippet sfloat
+indexes.FloatField(model_attr=${1:})
+endsnippet
+
+snippet sint
+indexes.IntegerField(model_attr=${1:})
+endsnippet
+
+snippet smval
+indexes.MultiValueField(model_attr=${1:})
+endsnippet
