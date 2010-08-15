@@ -78,6 +78,8 @@ applypatch () { patch -p0 < ~/.patch }
 bzrdiff () { bzr diff "$*" | colordiff; }
 bzrkompare () { bzr diff "$*" | kompare -; }
 bzrpatch () { bzr diff -r submit:$*; }
+gitkompare () { git diff $* | kompare -; }
+gitkomparec () { git diff --cached $* | kompare -; }
 svndiff () { svn diff "$*" | colordiff; }
 svnkompare () { svn diff "$*" | kompare -; }
 
@@ -125,6 +127,7 @@ hash -d d=~/projects/django/trunk
 hash -d src=~/src
 hash -d t=~/tmp
 hash -d df=~/.local/dotfiles
+hash -d dash=~/projects/textadv/trunk
 
 hash -d a=~/projects/angelo
 hash -d bac=~/projects/angelo/bac/trunk
