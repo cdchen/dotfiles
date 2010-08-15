@@ -1,4 +1,3 @@
-sessions/*
-old
-.VimballRecord
-.netrwhist
+vim/sessions/*
+vim/.VimballRecord
+vim/.netrwhist
