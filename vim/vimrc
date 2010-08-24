@@ -45,7 +45,7 @@ endif
 set cursorline
 
 " do syntax highlight syncing from start
-"autocmd BufEnter * :syntax sync fromstart
+autocmd BufEnter * :syntax sync fromstart
 
 autocmd BufEnter * :set list
 
@@ -362,7 +362,9 @@ vmap s{ <Esc>`>a}<Esc>`<i{<Esc>
 vmap s} <Esc>`>a}<Esc>`<i{<Esc>
 vmap s' <Esc>`>a'<Esc>`<i'<Esc>
 vmap s" <Esc>`>a"<Esc>`<i"<Esc>
-"vmap sa <Esc>`></a><Esc>`<<a href=""><Esc>hi
+vmap sa <Esc>`>a</a><Esc>`<i<a href=""><Esc>hi
+vmap st <Esc>`>a" %}<Esc>`<i{% trans "<Esc>f}a
+vmap sb <Esc>`>a{% endblocktrans %}<Esc>`<i{% blocktrans  %}<Esc>hhi
 
 " mapping for folding
 map + zo
@@ -640,6 +642,13 @@ endfunction
 vnoremap <leader>rv :call ExtractVariable()<cr>
 nnoremap <leader>ri :call InlineVariable()<cr>
 
+" git maps
+nnoremap <leader>gc :Gcommit<cr>
+nnoremap <leader>gd :Gdiff<cr>
+nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gw :Gwrite<cr>
+nnoremap <leader>ga :Gwrite<cr>
+
 " Find comment
 map <leader><leader># /^ *#<cr>:nohlsearch<cr>
 " Find function
@@ -657,3 +666,8 @@ map <leader><leader>m :FindLastImport<cr>
 " Spellchecking
 nmap <silent> <leader>c :set spell!<CR>
 set spelllang=en_gb
+
+" Source the vimrc file after saving it
+"if has("autocmd")
+"  autocmd bufwritepost .vimrc source $MYVIMRC
+"endif
