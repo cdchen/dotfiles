@@ -20,6 +20,7 @@ alias bdt="bin/django test -v 0"
 alias bdsm="bin/django startmigration"
 alias bdm="bin/django migrate"
 alias bdloadtestuser="bin/django loaddata ~p/snippets/djangotestuser.json"
+alias bb="bin/buildout"
 alias bt="bin/test"
 bdtest () { find src -name "*.py" | xargs pywatch "bin/test"; }
 
