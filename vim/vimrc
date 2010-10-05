@@ -44,6 +44,21 @@ else
 endif
 set cursorline
 
+" Show syntax highlighting groups for word under cursor
+" source: http://vimcasts.org/episodes/creating-colorschemes-for-vim/
+nmap <leader>p :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
+if exists('*HexHighlight()')
+  nmap <leader>h :call HexHighlight()<Return>
+endif
+
+
 " do syntax highlight syncing from start
 autocmd BufEnter * :syntax sync fromstart
 
@@ -363,7 +378,7 @@ vmap s} <Esc>`>a}<Esc>`<i{<Esc>
 vmap s' <Esc>`>a'<Esc>`<i'<Esc>
 vmap s" <Esc>`>a"<Esc>`<i"<Esc>
 vmap sa <Esc>`>a</a><Esc>`<i<a href=""><Esc>hi
-vmap st <Esc>`>a" %}<Esc>`<i{% trans "<Esc>f}a
+vmap st <Esc>`>a" %}<Esc>`<i{% trans "<Esc>f}
 vmap sb <Esc>`>a{% endblocktrans %}<Esc>`<i{% blocktrans  %}<Esc>hhi
 
 " mapping for folding
