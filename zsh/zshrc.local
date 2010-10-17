@@ -60,6 +60,10 @@ alias rsynca="rsync -rlptD"
 
 alias vizsh="gvim ~/.zshrc.local"
 
+if type hub>/dev/null ; then
+    alias git="hub"
+fi
+
 ofm() {
         emulate -L zsh
         dolphin "`pwd`" $* > /dev/null 2>&1
