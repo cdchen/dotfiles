@@ -471,7 +471,7 @@ function! SummarizeTabs()
 endfunction
 
 " Don't use Ex mode, use Q for formatting
-map Q gq
+map Q vipJgqq
 
 nnoremap d<lt> da<lt>
 "map <C-w> <ESC>:wq<Enter>
