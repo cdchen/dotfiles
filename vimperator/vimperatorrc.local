@@ -25,5 +25,7 @@ inoremap <C-a> <C-Home><C-S-End>
 nnoremap <A-PageUp> :tabmove -1<CR>
 nnoremap <A-PageDown> :tabmove +1<CR>
 
+nnoremap <A-Up> gU
+
 set nofocuscontent
 set guioptions+=B
