@@ -7,6 +7,8 @@
 " Must come first
 set nocompatible
 
+set hidden
+
 
 " loading bundles
 call pathogen#runtime_append_all_bundles() 
@@ -257,7 +259,6 @@ autocmd FileType vim setlocal shiftwidth=4 softtabstop=4
 
 " Javascript
 " ----------
-autocmd BufRead,BufNewFile *.js set ft=javascript.jquery
 autocmd FileType javascript setlocal shiftwidth=4 softtabstop=4
 let javascript_enable_domhtmlcss=1
 
