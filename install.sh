@@ -10,3 +10,6 @@ ln -s ~/.vim/vimrc ~/.vimrc
 
 ln -s `abspath vimperator/vimperatorrc` ~/.vimperatorrc
 ln -s `abspath vimperator/vimperatorrc.local` ~/.vimperatorrc.local
+
+mkdir ~/.vim/sessions
+touch ~/.vim_spinner_mru_files
