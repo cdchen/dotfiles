@@ -1,3 +1,5 @@
+export PATH=/opt/android-sdk-linux_x86/tools:$PATH
+export PATH=/opt/android-sdk-linux_x86/platforms/android-4/tools:$PATH
 export PATH=~/.local/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:$LD_LIBRARY_PATH
 
@@ -24,6 +26,8 @@ alias bb="bin/buildout"
 alias bt="bin/test"
 bdtest () { find src -name "*.py" | xargs pywatch "bin/test"; }
 
+# activate virtualenv
+alias a="source bin/activate"
 alias bf="bin/fab"
 
 alias dj="python manage.py"
@@ -86,6 +90,8 @@ bzrkompare () { bzr diff "$*" | kompare -; }
 bzrpatch () { bzr diff -r submit:$*; }
 gitkompare () { git diff $* | kompare -; }
 gitkomparec () { git diff --cached $* | kompare -; }
+gitkomp () { git diff $* | kompare -; }
+gitkompc () { git diff --cached $* | kompare -; }
 svndiff () { svn diff "$*" | colordiff; }
 svnkompare () { svn diff "$*" | kompare -; }
 
@@ -104,6 +110,10 @@ djangoticket () {
 
 djangoruntests () {
     PYTHONPATH=.. python runtests.py --settings=test_sqlite $*
+}
+
+buildoutnotpinned () {
+    bin/buildout -Novvvvv | sed -ne 's/^Picked: //p' | sort | uniq
 }
 
 alias -s pdf=okular
@@ -128,18 +138,5 @@ alias -s txt=gvim
 alias -s vim=gvim
 alias -s html=$BROWSER
 
-hash -d p=~/projects
-hash -d d=~/projects/django/trunk
-hash -d src=~/src
-hash -d t=~/tmp
-hash -d df=~/.local/dotfiles
-hash -d txtadv=~/projects/textadv/trunk
-
-hash -d a=~/projects/angelo
-hash -d bac=~/projects/angelo/bac/trunk
-hash -d gls=~/projects/angelo/gls/trunk
-hash -d horsy=~/projects/horsy/trunk
-hash -d gremu=~/projects/gregor/trunk
-hash -d ts=~/projects/angelo/thirdsector/trunk
-
-hash -d memora=/media/memora
+# Include very local file :)
+xsource "${HOME}/.zshrc.local.local"
