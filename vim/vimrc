@@ -11,7 +11,8 @@ set hidden
 
 
 " loading bundles
-call pathogen#runtime_append_all_bundles() 
+call pathogen#helptags()
+call pathogen#runtime_append_all_bundles()
 
 
 " allow backspacing over everything in insert mode
@@ -366,6 +367,10 @@ nnoremap <S-F11> <Esc>:set hlsearch<CR>
 map <C-T> <Esc>:tabe<CR>
 "
 map ß $
+map <C-j> 5j
+map <C-k> 5k
+map <C-h> 10h
+map <C-l> 10l
 map <C-Up> 5k
 map <C-Down> 5j
 map <C-Left> 10h
@@ -508,9 +513,9 @@ nmap <silent> <Leader>fa :TSelectFilesInSubdirs<CR>
 nmap <unique> <silent> <Leader>m <Plug>MarkSet
 nmap <unique> <silent> <Leader>mm <Plug>MarkSet
 nmap <unique> <silent> <Leader>mr <Plug>MarkRegex
-nmap <F2> :FilesystemExplorerFromHere<CR>
-nmap <S-F2> :FilesystemExplorer<CR>
-nmap <F3> :BufferExplorer<CR>
+nmap <F2> :LustyFilesystemExplorerFromHere<CR>
+nmap <S-F2> :LustyFilesystemExplorer<CR>
+nmap <F3> :LustyBufferExplorer<CR>
 
 " sessionman mappings
 " -------------------
