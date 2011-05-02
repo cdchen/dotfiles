@@ -194,7 +194,7 @@ from django.test import TestCase
 endsnippet
 
 snippet djcache b
-from djanco.core.cache import cache
+from django.core.cache import cache
 endsnippet
 
 snippet djviews b
@@ -371,6 +371,11 @@ endsnippet
 
 snippet ipy
 import IPython; IPython.Shell.IPShell().mainloop()
+endsnippet
+
+snippet pprint
+from pprint import pprint
+pprint($1)
 endsnippet
 
 ##############
@@ -816,7 +821,7 @@ endsnippet
 # fields
 
 snippet fbool
-forms.BooleanField(label=_('${1:}')${2/.+/, default=/}${2:True})
+forms.BooleanField(label=_('${1:}')${2/.+/, initial=/}${2:True})
 endsnippet
 
 snippet fchar

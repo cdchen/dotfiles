@@ -367,10 +367,6 @@ nnoremap <S-F11> <Esc>:set hlsearch<CR>
 map <C-T> <Esc>:tabe<CR>
 "
 map ß $
-map <C-j> 5j
-map <C-k> 5k
-map <C-h> 10h
-map <C-l> 10l
 map <C-Up> 5k
 map <C-Down> 5j
 map <C-Left> 10h
@@ -505,8 +501,6 @@ nnoremap <S-Tab> <lt><lt>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <lt>gv
 
-nmap <silent> <Leader>tt :TTags<CR>
-nmap <silent> <Leader>tc :TTags c<CR>
 nmap <silent> <Leader>rr :TRecentlyUsedFiles<CR>
 nmap <silent> <Leader>ff :TSelectFiles<CR>
 nmap <silent> <Leader>fa :TSelectFilesInSubdirs<CR>
@@ -692,6 +686,24 @@ map <leader><leader>m :FindLastImport<cr>
 " Spellchecking
 nmap <silent> <leader>c :set spell!<CR>
 set spelllang=en_gb
+
+" Window movement
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+" Line-wise visual mode helpers
+nnoremap Vit vitVkoj
+nnoremap Vat vatV
+nnoremap Vab vabV
+nnoremap VaB vaBV
+
+
+nnoremap <leader>dd :windo diffthis<CR>
+
+" force write with sudo permissions
+cmap w!! w !sudo tee % >/dev/null
 
 " Source the vimrc file after saving it
 "if has("autocmd")
