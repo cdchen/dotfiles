@@ -7,6 +7,8 @@ export LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:$LD_LIBRARY_PATH
 bindkey "\es" sudo-command-line
 
 # aliases
+alias t='python ~/Dropbox/tasks/t.py --task-dir ~/Dropbox/tasks --list tasks.txt'
+
 alias bd="bin/django"
 alias bdrs="bin/django runserver"
 alias bdrs0="bin/django runserver 0.0.0.0:8000"
