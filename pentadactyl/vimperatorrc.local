@@ -27,5 +27,6 @@ nnoremap <A-PageDown> :tabmove +1<CR>
 
 nnoremap <A-Up> gU
 
-set nofocuscontent
+set titlestring='Firefox'
+set nostrictfocus
 set guioptions+=B

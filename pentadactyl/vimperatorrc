@@ -1,7 +1,6 @@
 "2.1 (created: 2009/05/21 13:13:06)
 
-set guioptions=rbN
-set runtimepath=/home/gregor/.vimperator
-source! /home/gregor/.vimperatorrc.local
+set guioptions=r,b,N,B,s
+source! /home/gregor/.pentadactylrc.local
 
 " vim: set ft=vimperator:
