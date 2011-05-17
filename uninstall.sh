@@ -12,5 +12,6 @@ dellink ~/.zshrc.local
 dellink ~/.vim
 dellink ~/.vimrc
 
-dellink ~/.vimperatorrc
-dellink ~/.vimperatorrc.local
+dellink ~/.pentadactyl
+dellink ~/.pentadactylrc
+dellink ~/.pentadactylrc.local
