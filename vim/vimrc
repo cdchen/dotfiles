@@ -30,6 +30,9 @@ set guioptions-=e
 set guioptions-=m
 " Hiding scrollbar
 set guioptions-=r
+set guioptions-=l
+set guioptions-=L
+set guioptions-=R
 " always show tabline
 set showtabline=2
 

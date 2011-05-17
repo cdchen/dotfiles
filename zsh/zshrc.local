@@ -21,7 +21,7 @@ alias bdload="bin/django loaddata"
 alias bdt="bin/django test -v 0"
 alias bdsm="bin/django startmigration"
 alias bdm="bin/django migrate"
-alias bdloadtestuser="bin/django loaddata ~p/snippets/djangotestuser.json"
+alias bdloadtestuser="bin/django loaddata ~/projects/snippets/djangotestuser.json"
 alias bb="bin/buildout"
 alias bt="bin/test"
 bdtest () { find src -name "*.py" | xargs pywatch "bin/test"; }
@@ -42,7 +42,7 @@ alias djload="python manage.py loaddata"
 alias djt="python manage.py test"
 alias djsm="python manage.py startmigration"
 alias djm="python manage.py migrate"
-alias djloadtestuser="python manage.py loaddata ~p/snippets/djangotestuser.json"
+alias djloadtestuser="python manage.py loaddata ~/projects/snippets/djangotestuser.json"
 
 alias ack="ack-grep"
 alias b="bzr"
@@ -115,6 +115,10 @@ djangoruntests () {
 buildoutnotpinned () {
     bin/buildout -Novvvvv | sed -ne 's/^Picked: //p' | sort | uniq
 }
+
+export WORKON_HOME=~/.virtualenvs
+mkdir -p $WORKON_HOME
+source /usr/local/bin/virtualenvwrapper.sh
 
 alias -s pdf=okular
 alias -s mp3=vlc
