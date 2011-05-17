@@ -11,8 +11,8 @@ ln -s ~/.vim/vimrc ~/.vimrc
 ln -s `abspath gitignore` ~/.gitignore
 ln -s `abspath gitconfig` ~/.gitconfig
 
-ln -s `abspath pentadactyl/pentadactylrc` ~/.pentadactyl
-ln -s `abspath pentadactyl/pentadactylrc.local` ~/.pentadactyl.local
+ln -s `abspath pentadactyl/pentadactylrc` ~/.pentadactylrc
+ln -s `abspath pentadactyl/pentadactylrc.local` ~/.pentadactylrc.local
 
 test ! -e ~/.vim/sessions && mkdir ~/.vim/sessions
 touch ~/.vim_spinner_mru_files
