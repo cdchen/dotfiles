@@ -166,7 +166,6 @@ let python_highlight_long_lines=0
 
 " rope
 " ----
-source ~/.vim/custom/rope/rope.vim
 let g:ropevim_global_prefix = '<M-ß>'
 let g:ropevim_enable_shortcuts=1
 nnoremap <C-g><C-d> :RopeGotoDefinition<CR>
@@ -707,6 +706,8 @@ nnoremap <leader>dd :windo diffthis<CR>
 
 " force write with sudo permissions
 cmap w!! w !sudo tee % >/dev/null
+
+map <leader>ä :call MakeGreen('')<CR>
 
 " Source the vimrc file after saving it
 "if has("autocmd")

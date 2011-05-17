@@ -61,3 +61,6 @@
 [submodule "vim/bundle/ropevim"]
 	path = vim/bundle/ropevim
 	url = https://github.com/sontek/rope-vim.git
+[submodule "vim/bundle/makegreen"]
+	path = vim/bundle/makegreen
+	url = https://github.com/reinh/vim-makegreen
