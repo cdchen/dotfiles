@@ -664,6 +664,10 @@ endfunction
 vnoremap <leader>rv :call ExtractVariable()<cr>
 nnoremap <leader>ri :call InlineVariable()<cr>
 
+" TaskList maps
+nnoremap <silent> <leader>td :TaskList<CR>
+" TODO: Test
+
 " git maps
 nnoremap <leader>gc :Gcommit<cr>
 nnoremap <leader>gd :Gdiff<cr>
