@@ -11,8 +11,5 @@
 	ci = commit
 	co = checkout
         head = log -1
-[github]
-	user = gregmuellegger
-	token = dd86df2e21ba56cd4967e62a925e97d2
 [gui]
 	spellingdictionary = en_GB
