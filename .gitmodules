@@ -67,3 +67,6 @@
 [submodule "vim/bundle/pyflakes"]
 	path = vim/bundle/pyflakes
 	url = https://github.com/mitechie/pyflakes-pathogen.git
+[submodule "vim/bundle/command-t"]
+	path = vim/bundle/command-t
+	url = git://git.wincent.com/command-t.git
