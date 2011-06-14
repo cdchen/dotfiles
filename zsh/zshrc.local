@@ -118,7 +118,12 @@ buildoutnotpinned () {
 
 export WORKON_HOME=~/.virtualenvs
 mkdir -p $WORKON_HOME
-source /usr/local/bin/virtualenvwrapper.sh
+if [ -e /usr/local/bin/virtualenvwrapper.sh ] ; then
+    source /usr/local/bin/virtualenvwrapper.sh
+fi
+if [ -e /usr/bin/virtualenvwrapper.sh ] ; then
+    source /usr/bin/virtualenvwrapper.sh
+fi
 
 alias -s pdf=okular
 alias -s mp3=vlc
