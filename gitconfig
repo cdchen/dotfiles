@@ -13,3 +13,5 @@
         head = log -1
 [gui]
 	spellingdictionary = en_GB
+[github]
+	user = gregmuellegger
