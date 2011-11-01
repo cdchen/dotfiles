@@ -713,6 +713,8 @@ cmap w!! w !sudo tee % >/dev/null
 
 map <leader>ä :call MakeGreen('')<CR>
 
+let g:EasyMotion_leader_key = 'ä'
+
 " Source the vimrc file after saving it
 "if has("autocmd")
 "  autocmd bufwritepost .vimrc source $MYVIMRC
