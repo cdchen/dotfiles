@@ -3,9 +3,8 @@
 ########################
 
 snippet todo "Todo" !
-{# TODO(${1:gregor@muellegger.de}): $2 #}
+{# TODO(gregor@muellegger.de): $1 #}
 endsnippet
-
 
 snippet extends
 {% extends "$1" %}
@@ -107,7 +106,7 @@ endsnippet
 
 snippet block
 {% block $1 %}
-    $2
+$2
 {% endblock %}
 endsnippet
 
@@ -129,12 +128,24 @@ endsnippet
 # DJANGO VARIABLES #
 ####################
 
+snippet static
+{{ STATIC_URL }}
+endsnippet
+
 snippet media
 {{ MEDIA_URL }}
 endsnippet
 
-snippet .
+snippet . "." w
 {{ object$1 }}
+endsnippet
+
+snippet o "o" w
+{{ object.$1 }}
+endsnippet
+
+snippet url "url" w
+{{ object.get_absolute_url }}
 endsnippet
 
 #################
