@@ -28,5 +28,5 @@ nnoremap <A-PageDown> :tabmove +1<CR>
 nnoremap <A-Up> gU
 
 set titlestring='Firefox'
-set nostrictfocus
+"set strictfocus='laissez-faire'
 set guioptions+=B
