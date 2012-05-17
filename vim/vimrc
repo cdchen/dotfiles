@@ -354,7 +354,7 @@ nnoremap <silent> <S-F12> ggg?G''
 map <F4> <Esc>:NERDTreeToggle <C-R>=substitute(expand("%:p:h"), ' ', '\\ ', 'g') . '/'<CR><CR>
 " Open konsole for current pwd
 "nmap <silent> <F4> :!term --working-directory %/ &<CR><CR>
-nmap <silent> <S-F3> :!bzr explorer . &<CR>
+nmap <silent> <S-F3> :!dolphin . &<CR>
 nmap <silent> <S-F4> :!konsole --workdir . &<CR>
 " Show all lines which are longer than 80 coloumns
 map <S-F10> /\%>80v.\+<Enter>
@@ -368,7 +368,6 @@ nnoremap <S-F11> <Esc>:set hlsearch<CR>
 " Open new tab on Ctrl-T
 map <C-T> <Esc>:tabe<CR>
 "
-map ß $
 map <C-Up> 5k
 map <C-Down> 5j
 map <C-Left> 10h
