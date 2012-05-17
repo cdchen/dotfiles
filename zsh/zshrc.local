@@ -44,6 +44,8 @@ alias djsm="python manage.py startmigration"
 alias djm="python manage.py migrate"
 alias djloadtestuser="python manage.py loaddata ~/projects/snippets/djangotestuser.json"
 
+alias mysql='mysql --safe-updates'
+
 alias ack="ack-grep"
 alias b="bzr"
 alias grepn="grep -n"
