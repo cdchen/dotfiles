@@ -76,3 +76,15 @@
 [submodule "vim/bundle/getafe"]
 	path = vim/bundle/getafe
 	url = https://github.com/larssmit/vim-getafe.git
+[submodule "vim/bundle/vmark"]
+	path = vim/bundle/vmark
+	url = https://github.com/vim-scripts/vmark.vim--Visual-Bookmarking.git
+[submodule "vim/bundle/color_highlight"]
+	path = vim/bundle/color_highlight
+	url = https://github.com/chrisbra/color_highlight.git
+[submodule "vim/bundle/werks-color"]
+	path = vim/bundle/werks-color
+	url = https://github.com/vim-scripts/werks.vim.git
+[submodule "vim/bundle/sonoma-color"]
+	path = vim/bundle/sonoma-color
+	url = https://github.com/vim-scripts/sonoma.vim.git
