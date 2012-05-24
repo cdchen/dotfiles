@@ -26,10 +26,6 @@ alias bb="bin/buildout"
 alias bt="bin/test"
 bdtest () { find src -name "*.py" | xargs pywatch "bin/test"; }
 
-# activate virtualenv
-alias a="source bin/activate"
-alias bf="bin/fab"
-
 alias dj="python manage.py"
 alias djrs="python manage.py runserver"
 alias djrs0="python manage.py runserver 0.0.0.0:8000"
@@ -116,6 +112,23 @@ djangoruntests () {
 
 buildoutnotpinned () {
     bin/buildout -Novvvvv | sed -ne 's/^Picked: //p' | sort | uniq
+}
+
+a () {
+    # Searches the parent directory for virtualenvs and activates the first
+    # that its finding
+
+    directory=`pwd`
+    while [ ! -e $directory/bin/activate ]
+    do
+        directory=`dirname $directory`
+        if [ $directory == "/" ]
+        then
+            echo "No virtualenv found :("
+            return
+        fi
+    done
+    source $directory/bin/activate
 }
 
 export WORKON_HOME=~/.virtualenvs
