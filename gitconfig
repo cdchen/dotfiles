@@ -1,17 +1,22 @@
 [core]
-	excludesfile = /home/gregor/.gitignore
+    excludesfile = /home/gregor/.gitignore
 [user]
-	name = Gregor Müllegger
-	email = gregor@muellegger.de
+    name = Gregor Müllegger
+    email = gregor@muellegger.de
+[diff]
+[color]
+    ui = auto
+[merge]
+    tool = vimdiff
 [alias]
-        aa = add --all
-        d = diff
-	dc = diff --cached
-	st = status
-	ci = commit
-	co = checkout
-        head = log -1
+    aa = add --all
+    d = diff
+    dc = diff --cached
+    st = status
+    ci = commit
+    co = checkout
+    head = log -1
 [gui]
-	spellingdictionary = en_GB
+    spellingdictionary = en_GB
 [github]
-	user = gregmuellegger
+    user = gregmuellegger
