@@ -1,8 +1,8 @@
 [core]
-    excludesfile = /home/gregor/.gitignore
+#    excludesfile = /home/gregor/.gitignore
 [user]
-    name = Gregor Müllegger
-    email = gregor@muellegger.de
+	name = Cd Chen
+	email = cdchen@nicestudio.com.tw
 [diff]
 [color]
     ui = auto
@@ -19,4 +19,13 @@
 [gui]
     spellingdictionary = en_GB
 [github]
-    user = gregmuellegger
+#    user = gregmuellegger
+    user = cdchen
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[core]
+	excludesfile = /Users/cdchen/.gitignore_global
